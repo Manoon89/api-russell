@@ -1,0 +1,11 @@
+{
+    "source": {
+        "include": ["src"], 
+        "includePattern": ".js$",
+        "exclusePattern": "(node_module/ldocs)"
+    }, 
+    "opts": {
+        "recurse": true, 
+        "destination": "./docs/"
+    }
+}

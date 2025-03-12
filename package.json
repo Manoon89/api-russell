@@ -2,6 +2,7 @@
   "name": "api-port-russel",
   "version": "0.0.0",
   "private": true,
+  "doc": "jsdoc -c jsdoc.json",
   "scripts": {
     "start": "env-cmd -f ./env.env nodemon ./bin/www",
     "dev": "env-cmd -f ./env.env.dev nodemon ./bin/www",
