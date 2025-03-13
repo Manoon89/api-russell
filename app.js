@@ -12,6 +12,7 @@ const usersRouter = require('./src/routes/users');
 const catwaysRouter = require('./src/routes/catways');
 const reservationsRouter = require('./src/routes/reservations');
 const authRouter = require('./src/routes/auth');
+const dashboardRouter = require('./src/routes/dashboard');
 
 const mongodb = require('./db/mongo');
 
@@ -39,6 +40,7 @@ app.use('/users', usersRouter);
 app.use('/catways', catwaysRouter);
 app.use('/reservations', reservationsRouter);
 app.use('/auth', authRouter);
+app.use('/dashboard', dashboardRouter);
 
 /* use function learned in course instead
 catch 404 and forward to error handler

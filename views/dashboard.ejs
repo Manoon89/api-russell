@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de bord - Port de plaisance de Russell</title>
+</head>
+
+<body>
+
+    <header>
+        <h1>Tableau de bord - Port de plaisance de Russell</h1>
+        <nav>
+            <ul>
+                <li>Gestion des utilisateurs</li>
+                <li>Gestion des catways</li>
+                <li>Gestion des réservations</li>
+                <li>Documentation de l'API</li>
+                <li>Se déconnecter</li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+
+        <section>
+
+            <h2>Utilisateur connecté :</h2>
+
+            <!--à faire : 
+            <p>Nom et mail de l'utilisateur connecté</p>
+            -->
+
+        </section>
+
+        <time datetime="<%= currentDate.toISOString() %>"><%= currentDate.toISOString() %></time>
+
+        <table>
+            
+            <caption>Liste des réservations en cours</caption>
+
+            <thead>
+                <tr>
+                    <th>Numéro de catway</th>
+                    <th>Nom du client</th>
+                    <th>Nom du bateau</th>
+                    <th>Date de début</th>
+                    <th>Date de fin</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <% reservations.forEach(function(reservation) { %>
+                    <tr>
+                        <td><%= reservation.catwayNumber %></td>
+                        <td><%= reservation.clientName %></td>
+                        <td><%= reservation.boatName %></td>
+                        <td><time datetime="<%= reservation.startDate %>"><%= reservation.startDate %></time></td>
+                        <td><time datetime="<%= reservation.endDate %>"><%= reservation.endDate %></time></td> 
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+
+    </main>
+
+
+</body>
+
+</html>

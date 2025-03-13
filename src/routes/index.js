@@ -10,11 +10,17 @@ router.use('/catways', catwayRoute);
 router.use('/reservations', reservationRoute);
 
 router.get('/', async (req, res) => {
-  res.status(200).json({
+/*  res.status(200).json({
     name: process.env.APP_NAME, 
     version: 1.0, 
     status: 200, 
     message: 'Bienvenue dans cette extraordinaire API'
+  })
+*/
+
+    res.render('index', {
+      title: 'Accueil'
+
   })
 })
 
