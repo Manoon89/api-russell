@@ -46,6 +46,49 @@ exports.getByEmail = async (req, res, next) => {
     }
 }
 
+// Modifier un utilisateur
+exports.update = async (req, res, next) => {
+    const email = req.params.email
+    const temp = ({
+        username: req.body.username, 
+        email: req.body.email, 
+        password: req.body.password
+    });
+
+    try {
+        let user = await User.findOne({email: email});
+
+        if (user) {
+            Object.keys(temp).forEach((key) => {
+                if (!!temp[key]){
+                    user [key] = temp [key];
+                }
+            });
+
+            await user.save();
+            return res.status(201).json('user');
+        }
+
+        return res.status(404).json('user_not_found');
+    }
+    catch (error) {
+        return res.status(501).json(error);
+    }
+}
+
+/* problème sur le delete à résoudre */
+exports.delete = async (req, res, next) => {
+    const email = req.params.email
+    
+    try {
+        await User.deleteOne({email: email});
+        return res.status(204).json('delete_ok');
+    }
+    catch (error) {
+        return res.status(501).json(error);
+    }
+}
+
 exports.authenticate = async (req, res, next) => {
     
     const {email, password} = req.body; 
