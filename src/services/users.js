@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken'); 
 const User = require('../models/user');
 
+// Fonction pour ajouter un nouvel utilisateur
 exports.add = async (req, res, next) => {
     const temp = ({
         username: req.body.username, 
@@ -18,10 +19,19 @@ exports.add = async (req, res, next) => {
     }    
 }
 
+// Lister tous les utilisateurs
+exports.getAll = async (req, res, next) => {
+    try {
+        let users = await User.find();
+        return res.status(200).json(users);
+    }
+    catch (error) {
+        return res.status(501).json(error);
+    }
+}
 
-//TODO : exports.getAll = 
-
-// Chercher un utilisateur via son email
+// Chercher un utilisateur via son email. 
+// Note à moi-même : pour tester utiliser l'URL sans les ":" suivi du vrai email. 
 exports.getByEmail = async (req, res, next) => {
     const email = req.params.email
     try {
