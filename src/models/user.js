@@ -25,7 +25,7 @@ const User = new userSchema ({
         trim: true, 
         required: [true, 'le mot de passe est requis'], 
         minlength: [8, 'le mot de passe doit contenir au moins 8 caractères'], 
-        match: [/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,20}$/, 'le mot de passe doit contenir une minuscule, une majuscule, un chiffre et un caractère spécial']
+        match: [/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}$/, 'le mot de passe doit contenir au moins une minuscule, une majuscule, un chiffre et un caractère spécial']
     }
 }, {
     timestamps: true
