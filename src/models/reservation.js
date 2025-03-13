@@ -21,7 +21,6 @@ const Reservation = new reservationSchema ({
         type: Date, 
         trim: true, 
         required: [true, 'la date de début est obligatoire']
-        //rajouter une option pour le format de la date
     }, 
     endDate: {
         type: Date, 
@@ -29,7 +28,7 @@ const Reservation = new reservationSchema ({
         required: [true, 'la date de fin est obligatoire']
     }
 }, {
-    timestamps: true
+    timestamps: true, 
 });
 
 module.exports = mongoose.model('Reservation', Reservation);
