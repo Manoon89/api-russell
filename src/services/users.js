@@ -76,7 +76,7 @@ exports.update = async (req, res, next) => {
     }
 }
 
-/* problème sur le delete à résoudre */
+// Supprimer un utilisateur
 exports.delete = async (req, res, next) => {
     const email = req.params.email
     

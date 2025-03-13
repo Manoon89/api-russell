@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const catwaySchema = mongoose.Schema; 
 
 const Catway = new catwaySchema ({
-    catwayNumer: {
+    catwayNumber: {
         type: Number, 
         trim: true, 
         unique: true, 
