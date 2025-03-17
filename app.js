@@ -8,6 +8,8 @@ const logger = require('morgan');
 const cors = require('cors');
 
 const indexRouter = require('./src/routes/index');
+const authRouter = require('./src/routes/auth');
+
 /*
 const usersRouter = require('./src/routes/users');
 const catwaysRouter = require('./src/routes/catways');
@@ -36,8 +38,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({ extended: true }));
 
 app.use('/', indexRouter);
+app.use('/auth', authRouter);
 /*
 app.use('/users', usersRouter);
 app.use('/catways', catwaysRouter);

@@ -10,7 +10,7 @@ const authRoute = require('../routes/auth');
 router.use('/users', userRoute);
 router.use('/catways', catwayRoute);
 router.use('/reservations', reservationRoute);
-router.use('/dahsboard', dashboardRoute);
+router.use('/dashboard', dashboardRoute);
 router.use('/auth', authRoute);
 
 router.get('/', async (req, res) => {

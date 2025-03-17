@@ -5,14 +5,26 @@ const User = require('../models/user');
 exports.login = async (req, res, next) => {
     const {email, password} = req.body; 
 
+    console.log('Données reçues :', req.body);
+
+    if (!email || !password) {
+        return res.status(400).json('Email and password are required');
+    }
+
     try {
-        const user = await User.findOne ({email: email});
+        
+        console.log('email reçu :', email);
+
+        const user = await User.findOne ({ email: email });
+
         if (!user) {
+            console.log('Utilisateur non trouvé');
             return res.status(404).json('user_not_found');
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
+            console.log('Mot de passe incorrect');
             return res.status(401).json('wrong_credentials');
         }
 
@@ -22,10 +34,13 @@ exports.login = async (req, res, next) => {
             {expiresIn: '1h'}
         );
 
-        return res.status(200).json({token});
+        console.log('Utilisateur connecté avec succès');
+        return res.redirect('/dashboard');
+        /*return res.status(200).json({token});*/
     }
     catch (error) {
-        return res.status(501).json(error);
+        console.error('Erreur lors de la connexion: ', error);
+        return res.status(500).json('Internal server error');
     }
 };
 
