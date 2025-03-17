@@ -11,11 +11,6 @@
         <h1>Gestion des réservations - Port de plaisance de Russel</h1>
         <nav>
             <ul>
-                <li>Créer une nouvelle réservation</li>
-                <li>Lister l'ensemble des réservations du catway</li>
-                <li>Consulter une réservation</li>
-                <li>Modifier une réservation</li>
-                <li>Supprimer une réservation</li>
                 <li><a href="/dashboard">Retour au tableau de bord</a></li>
                 <li><a href="/auth/logout">Déconnexion</a></li>
             </ul>
@@ -23,7 +18,9 @@
     </header>
 
     <main>
-        
+
+        <button onclick="window.location.href='/reservations/add'">Ajouter une réservation</button>        
+
         <table>
             
             <caption>Liste des réservations en cours</caption>
@@ -35,6 +32,7 @@
                     <th>Nom du bateau</th>
                     <th>Date de début</th>
                     <th>Date de fin</th>
+                    <th>Modifier / Supprimer</th>
                 </tr>
             </thead>
 
@@ -44,8 +42,15 @@
                         <td><%= reservation.catwayNumber %></td>
                         <td><%= reservation.clientName %></td>
                         <td><%= reservation.boatName %></td>
-                        <td><time datetime="<%= reservation.startDate %>"><%= reservation.startDate %></time></td>
-                        <td><time datetime="<%= reservation.endDate %>"><%= reservation.endDate %></time></td> 
+                        <td><time datetime="<%= reservation.startDate %>"><%= new Date(reservation.startDate).toLocaleDateString('fr-FR') %></time></td>
+                        <td><time datetime="<%= reservation.endDate %>"><%= new Date(reservation.endDate).toLocaleDateString('fr-FR') %></time></td> 
+                        <td>
+                            <button onclick="window.location.href='/reservations/details/<%= reservation._id %>'">Détails</button>
+                            <button onclick="window.location.href='/reservations/edit/<%= reservation._id %>'">Modifier</button>
+                            <form action="/reservations/<%= reservation._id %>?_method=DELETE" method="POST">
+                                <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette réservation ?')">Supprimer</button>
+                            </form>    
+                        </td>
                     </tr>
                 <% }); %>
             </tbody>

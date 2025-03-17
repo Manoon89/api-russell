@@ -11,11 +11,6 @@
         <h1>Gestion des catways - Port de plaisance de Russel</h1>
         <nav>
             <ul>
-                <li>Créer un catway</li>
-                <li>Voir l'ensemble des catways</li>
-                <li>Consulter un catway</li>
-                <li>Modifier la description d'un catway</li>
-                <li>Supprimer un catway</li>
                 <li><a href="/dashboard">Retour au tableau de bord</a></li>
                 <li><a href="/auth/logout">Déconnexion</a></li>
             </ul>
@@ -23,6 +18,8 @@
     </header>
 
     <main>
+
+        <button onclick="window.location.href='/catways/add'">Ajouter un catway</button>   
 
         <table>
             
@@ -33,6 +30,7 @@
                     <th>Numéro de catway</th>
                     <th>Type de catway</th>
                     <th>Etat du catway</th>
+                    <th>Modifier / Supprimer</th>
                 </tr>
             </thead>
 
@@ -42,6 +40,16 @@
                         <td><%= catway.catwayNumber %></td>
                         <td><%= catway.catwayType %></td>
                         <td><%= catway.catwayState %></td>
+                        <td>
+                            
+                            <button onclick="window.location.href='/catways/details/<%= catway._id %>'">Détails</button>
+                            
+                            <button onclick="window.location.href='/catways/edit/<%= catway._id %>'">Modifier</button>
+                            
+                            <form action="/catways/<%= catway._id %>?_method=DELETE" method="POST">
+                                <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce catway ?')">Supprimer</button>
+                            </form>
+                        </td>
                     </tr>
                 <% }); %>
             </tbody>

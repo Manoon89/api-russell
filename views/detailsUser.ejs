@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails de l'Utilisateur</title>
+</head>
+
+<body>
+
+    <h1>Détails de l'Utilisateur</h1>
+
+    <p><strong>ID :</strong> <%= user._id %></p>
+    <p><strong>Nom d'utilisateur :</strong> <%= user.username %></p>
+    <p><strong>Email :</strong> <%= user.email %></p>
+    <p><strong>Créé le :</strong> <%= new Date(user.createdAt).toLocaleDateString('fr-FR') %></p>
+    <p><strong>Dernière mise à jour :</strong> <%= new Date(user.updatedAt).toLocaleDateString('fr-FR') %></p>
+
+    <button onclick="window.location.href='/users/manage'">Retour à la liste</button>
+
+</body>
+</html>

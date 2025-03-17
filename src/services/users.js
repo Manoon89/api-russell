@@ -12,7 +12,7 @@ exports.add = async (req, res, next) => {
 
     try {
         let user = await User.create(temp);
-        return res.status(201).json(user);
+        return res.redirect('/users/manage');
     }
     catch (error) {
         return res.status(501).json(error);
@@ -31,7 +31,6 @@ exports.getAll = async (req, res, next) => {
 }
 
 // Chercher un utilisateur via son email. 
-// Note à moi-même : pour tester utiliser l'URL sans les ":" suivi du vrai email. 
 exports.getByEmail = async (req, res, next) => {
     const email = req.params.email
     try {
@@ -48,44 +47,43 @@ exports.getByEmail = async (req, res, next) => {
 
 // Modifier un utilisateur
 exports.update = async (req, res, next) => {
-    const email = req.params.email
-    const temp = ({
-        username: req.body.username, 
-        email: req.body.email, 
-        password: req.body.password
-    });
+    const email = req.params.email; // Récupère l'email depuis les paramètres
+    const updatedData = {
+        username: req.body.username,
+        email: req.body.email 
+    };
 
     try {
-        let user = await User.findOne({email: email});
+        const user = await User.findOneAndUpdate({ email: email }, updatedData, { new: true, runValidators: true });
 
-        if (user) {
-            Object.keys(temp).forEach((key) => {
-                if (!!temp[key]){
-                    user [key] = temp [key];
-                }
-            });
-
-            await user.save();
-            return res.status(201).json('user');
+        if (!user) {
+            console.error('Utilisateur introuvable pour l\'email :', email);
+            return res.redirect('/users/manage?error=Utilisateur introuvable');
         }
 
-        return res.status(404).json('user_not_found');
+        console.log('Utilisateur mis à jour avec succès :', user);
+        return res.redirect('/users/manage?success=Utilisateur modifié avec succès');
+    } catch (error) {
+        console.error('Erreur lors de la mise à jour de l\'utilisateur :', error);
+        return res.redirect('/users/manage?error=Erreur lors de la mise à jour');
     }
-    catch (error) {
-        return res.status(501).json(error);
-    }
-}
+};
 
 // Supprimer un utilisateur
 exports.delete = async (req, res, next) => {
     const email = req.params.email
     
     try {
-        await User.deleteOne({email: email});
-        return res.status(204).json('delete_ok');
+        const result = await User.findOneAndDelete({ email: email }); 
+
+        if (!result) {
+            return res.status(404).json({ message: 'Utilisateur introuvable' });
+        }
+
+        return res.redirect('/users/manage');
     }
     catch (error) {
-        return res.status(501).json(error);
+        return res.status(500).json(error);
     }
 }
 

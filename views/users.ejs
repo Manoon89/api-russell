@@ -11,11 +11,6 @@
         <h1>Gestion des utilisateurs - Port de plaisance de Russel</h1>
         <nav>
             <ul>
-                <li>Créer un nouvel utilisateur</li>
-                <li>Lister les utilisateurs</li>
-                <li>Consulter un utilisateur</li>
-                <li>Modifier un utilisateur</li>
-                <li>Supprimer un utilisateur</li>
                 <li><a href="/dashboard">Retour au tableau de bord</a></li>
                 <li><a href="/auth/logout">Déconnexion</a></li>
             </ul>
@@ -23,6 +18,8 @@
     </header>
 
     <main>
+
+        <button onclick="window.location.href='/users/add'">Ajouter un utilisateur</button>
 
         <table>
             
@@ -32,6 +29,7 @@
                 <tr>
                     <th>Nom d'utilisateur</th>
                     <th>Email de l'utilisateur</th>
+                    <th>Modifier / Supprimer</th>
                  </tr>
             </thead>
 
@@ -40,6 +38,15 @@
                     <tr>
                         <td><%= user.username %></td>
                         <td><%= user.email %></td>
+                        <td> 
+                            <button onclick="window.location.href='/users/details/<%= user.email %>'">Détails</button>
+                            <button onclick="window.location.href='/users/edit/<%= user.email %>'">Modifier</button>
+                            <form action="/users/<%= user.email %>?_method=DELETE" method="POST">
+                                <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')">
+                                    Supprimer
+                                </button>
+                            </form>
+                        </td>
                     </tr>
                 <% }); %>
             </tbody>
