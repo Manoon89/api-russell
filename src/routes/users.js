@@ -10,10 +10,6 @@ router.get('/', private.checkJWT, serviceUsers.getAll);
 router.put('/:email', private.checkJWT, serviceUsers.update);
 router.delete('/:email', private.checkJWT, serviceUsers.delete);
 
-
-/* en commentaire en attendant de compléter les fichiers du dossier service
-*/
-
 /* importé avec express-generator. On garde en commentaire au cas où. 
 GET users listing. 
 router.get('/', function(req, res, next) {

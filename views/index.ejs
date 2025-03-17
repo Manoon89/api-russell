@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application - Port de plaisance de Russell</title>
+</head>
+
+<body>
+    <header>
+        <h1>Accueil - Port de plaisance de Russel</h1>
+    </header>
+
+    <main>
+        <section>
+            <h2>Bienvenue sur votre application pour gérer les réservations des catways !</h2>
+            <p>Vous pouvez sur cette application :
+                <ul>
+                    <li>Gérer les utilisateurs</li>
+                    <li>Gérer les catways</li>
+                    <li>Gérer les réservations</li>
+                </ul>
+            </p>
+        </section>
+        
+        <form action="/login" method="post" enctype="multipart/form-data">
+            <legend>Connexion à votre compte</legend>
+            <input type="email" name="email" id="email" placeholder="Saisissez ici votre adresse e-mail">
+            <input type="text" name="password" id="password" placeholder="Saisissez ici votre mot de passe">
+            <input type="submit" name="connexion" id="connexion" value="Connexion">
+        </form>
+    </main>
+
+    <footer>
+        <small>Vous pourrez trouver la documentation de l'API ici : <a href="#">Documentation de l'API</a></small>
+    </footer>
+
+</body>
+</html>
