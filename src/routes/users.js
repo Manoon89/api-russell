@@ -17,6 +17,10 @@ router.get('/manage', private.checkJWT, async (req, res) => {
     }
 });
 
+router.get('/add', private.checkJWT, (req, res) => {
+  res.render('addUser');
+});
+
 router.post('/', serviceUsers.add);
 router.get('/:email', private.checkJWT, serviceUsers.getByEmail);
 router.get('/', private.checkJWT, serviceUsers.getAll);

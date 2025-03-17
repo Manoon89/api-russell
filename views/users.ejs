@@ -24,6 +24,8 @@
 
     <main>
 
+        <button onclick="window.location.href='/users/add'">Ajouter un utilisateur</button>
+
         <table>
             
             <caption>Liste des utilisateurs</caption>
@@ -32,6 +34,7 @@
                 <tr>
                     <th>Nom d'utilisateur</th>
                     <th>Email de l'utilisateur</th>
+                    <th>Modifier / Supprimer</th>
                  </tr>
             </thead>
 
@@ -40,6 +43,9 @@
                     <tr>
                         <td><%= user.username %></td>
                         <td><%= user.email %></td>
+                        <td> 
+                  
+                        </td>
                     </tr>
                 <% }); %>
             </tbody>

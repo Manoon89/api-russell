@@ -12,7 +12,7 @@ exports.add = async (req, res, next) => {
 
     try {
         let user = await User.create(temp);
-        return res.status(201).json(user);
+        return res.redirect('/users/manage');
     }
     catch (error) {
         return res.status(501).json(error);
@@ -81,11 +81,16 @@ exports.delete = async (req, res, next) => {
     const email = req.params.email
     
     try {
-        await User.deleteOne({email: email});
+        await User.findOneAndDelete({ email: email});
+
+        if (result.deletedCount === 0) {
+            return res.status(404).json({ message: 'Utilisateur introuvable' });
+        }
+
         return res.status(204).json('delete_ok');
     }
     catch (error) {
-        return res.status(501).json(error);
+        return res.status(500).json(error);
     }
 }
 
