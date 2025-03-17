@@ -5,6 +5,8 @@ const Reservation = require('../models/reservation');
 router.get('/', async(req, res) => {
     try {
         const reservations = await Reservation.find();
+        const user = req.session?.user || null;
+        
         return res.render('dashboard', {reservations: reservations});
     }
     catch (error) {

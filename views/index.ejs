@@ -23,12 +23,13 @@
             </p>
         </section>
         
-        <form action="/login" method="post" enctype="multipart/form-data">
+        <form action="/auth/login" method="post">
             <legend>Connexion à votre compte</legend>
-            <input type="email" name="email" id="email" placeholder="Saisissez ici votre adresse e-mail">
-            <input type="text" name="password" id="password" placeholder="Saisissez ici votre mot de passe">
+            <input type="email" name="email" id="email" placeholder="Saisissez ici votre adresse e-mail" required>
+            <input type="password" name="password" id="password" placeholder="Saisissez ici votre mot de passe" required>
             <input type="submit" name="connexion" id="connexion" value="Connexion">
         </form>
+
     </main>
 
     <footer>
