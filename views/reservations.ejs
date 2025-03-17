@@ -11,11 +11,6 @@
         <h1>Gestion des réservations - Port de plaisance de Russel</h1>
         <nav>
             <ul>
-                <li>Créer une nouvelle réservation</li>
-                <li>Lister l'ensemble des réservations du catway</li>
-                <li>Consulter une réservation</li>
-                <li>Modifier une réservation</li>
-                <li>Supprimer une réservation</li>
                 <li><a href="/dashboard">Retour au tableau de bord</a></li>
                 <li><a href="/auth/logout">Déconnexion</a></li>
             </ul>
@@ -23,7 +18,9 @@
     </header>
 
     <main>
-        
+
+        <button onclick="window.location.href='/reservations/add'">Ajouter une réservation</button>        
+
         <table>
             
             <caption>Liste des réservations en cours</caption>

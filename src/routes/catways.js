@@ -18,6 +18,10 @@ router.get('/manage', private.checkJWT, async (req, res) => {
     }
 });
 
+router.get('/add', private.checkJWT, (req, res) => {
+  res.render('addCatway');
+});
+
 router.post('/', serviceCatways.add);
 router.get('/', serviceCatways.getAll);
 router.get('/:id', serviceCatways.getOne);

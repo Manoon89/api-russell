@@ -2,10 +2,9 @@ const Reservation = require('../models/reservation');
 
 // Fonction pour ajouter une nouvelle réservation
 exports.add = async (req, res, next) => {
-    const catwayId = req.params.catwayNumber
 
     const temp = ({
-        catwayNumber: catwayId, 
+        catwayNumber: req.body.catwayNumber,
         clientName: req.body.clientName, 
         boatName: req.body.boatName, 
         startDate: req.body.startDate, 
@@ -14,7 +13,7 @@ exports.add = async (req, res, next) => {
 
     try {
         let reservation = await Reservation.create(temp);
-        return res.status(201).json(reservation);
+        return res.redirect('/reservations/manage');
     }
     catch (error) {
         return res.status(501).json(error);

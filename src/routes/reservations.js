@@ -17,6 +17,10 @@ router.get('/manage', private.checkJWT, async (req, res) => {
     }
 });
 
+router.get('/add', private.checkJWT, (req, res) => {
+  res.render('addReservation');
+});
+
 router.post('/', serviceReservations.add);
 router.get('/', serviceReservations.getAll);
 

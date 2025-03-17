@@ -10,7 +10,7 @@ exports.add = async (req, res, next) => {
 
     try {
         let catway = await Catway.create(temp);
-        return res.status(201).json(catway);
+        return res.redirect('/catways/manage');
     }
     catch (error) {
         return res.status(501).json(error);
