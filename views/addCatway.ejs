@@ -9,6 +9,11 @@
 
 <body>
     <h1>Ajouter un catway</h1>
+
+    <% if (typeof error !== 'undefined') { %>
+        <p><%= error %></p>
+    <% } %>
+
     <form action="/catways" method="POST">
 
         <label for="catwayNumber">Numéro de catway :</label>

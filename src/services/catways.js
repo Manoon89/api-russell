@@ -13,8 +13,20 @@ exports.add = async (req, res, next) => {
         return res.redirect('/catways/manage');
     }
     catch (error) {
-        return res.status(501).json(error);
-    }    
+        console.error('Erreur lors de la création du catway :', error);
+
+        // Vérifiez si c'est une erreur de validation
+        if (error.name === 'ValidationError') {
+            return res.render('addCatway', { 
+                error: 'Attention, le type de Catway doit être "short" ou "long". Veuillez corriger votre saisie.' 
+            });
+        }
+
+        // Pour tout autre type d'erreur
+        return res.render('addCatway', { 
+            error: 'Une erreur est survenue lors de la création du catway. Veuillez réessayer.' 
+        });
+    }
 }
 
 // Lister l'ensemble des catways
