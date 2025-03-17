@@ -7,21 +7,15 @@ const reservationRoute = require('../routes/reservations');
 const dashboardRoute = require('../routes/dashboard');
 const authRoute = require('../routes/auth');
 
+// On récupère les autres fichiers route existants
 router.use('/users', userRoute);
 router.use('/catways', catwayRoute);
 router.use('/reservations', reservationRoute);
 router.use('/dashboard', dashboardRoute);
 router.use('/auth', authRoute);
 
+// On renvoie sur la vue "index"
 router.get('/', async (req, res) => {
-/*  res.status(200).json({
-    name: process.env.APP_NAME, 
-    version: 1.0, 
-    status: 200, 
-    message: 'Bienvenue dans cette extraordinaire API'
-  })
-*/
-
     res.render('index')
 })
 
@@ -37,12 +31,5 @@ router.post('/login', async(req, res) => {
   }
 
 })
-
-/* à garder peut-être pour les vues ? à voir. 
-GET home page. 
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
-*/
 
 module.exports = router;

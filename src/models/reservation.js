@@ -28,6 +28,7 @@ const Reservation = new reservationSchema ({
         required: [true, 'la date de fin est obligatoire']
     }
 }, {
+    // Pour rajouter createdAt & updateAt
     timestamps: true, 
 });
 

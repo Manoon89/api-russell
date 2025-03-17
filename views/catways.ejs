@@ -19,6 +19,13 @@
 
     <main>
 
+        <% if (error) { %>
+            <div><%= error %></div>
+        <% } %>
+        <% if (success) { %>
+            <div><%= success %></div>
+        <% } %>
+        
         <button onclick="window.location.href='/catways/add'">Ajouter un catway</button>   
 
         <table>

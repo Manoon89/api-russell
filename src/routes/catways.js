@@ -4,27 +4,36 @@ const Catway = require('../models/catway');
 const private = require('../middlewares/private');
 
 const serviceCatways = require('../services/catways')
-const reservationsRouter = require('./reservations');
 
+// Permet d'accéder à la page de gestion des catways
 router.get('/manage', private.checkJWT, async (req, res) => {
     
     try {
         const catways = await Catway.find();
+        const { error, success } = req.query;
         
-        return res.render('catways', {catways: catways});
+        // retourne la liste des catways présents dans la base de données
+        return res.render('catways', {
+            catways: catways, 
+            error: error || null, 
+            success: success || null
+        });
     }
     catch (error) {
         res.status(500).send(error.message);
     }
 });
 
+// Permet d'accéder à la page de création d'un nouveau Catway
 router.get('/add', private.checkJWT, (req, res) => {
   res.render('addCatway');
 });
 router.post('/', private.checkJWT, serviceCatways.add);
 
+// Permet d'accéder à la liste de tous les catways
 router.get('/', private.checkJWT, serviceCatways.getAll);
 
+// Permet d'accéder aux détails d'un catway, y compris la date de création & la date de modification
 router.get('/details/:id', private.checkJWT, async (req, res) => {
     try {
         const catway = await Catway.findById(req.params.id); 
@@ -39,9 +48,10 @@ router.get('/details/:id', private.checkJWT, async (req, res) => {
 });
 router.get('/:id', private.checkJWT, serviceCatways.getOne);
 
+// Permet d'accéder à la page de modification d'un catway
 router.get('/edit/:id', private.checkJWT, async (req, res) => {
     try {
-        const catway = await Catway.findById(req.params.id); // Récupère le catway à modifier
+        const catway = await Catway.findById(req.params.id);
         if (!catway) {
             return res.redirect('/catways/manage?error=Catway introuvable');
         }
@@ -53,8 +63,7 @@ router.get('/edit/:id', private.checkJWT, async (req, res) => {
 });
 router.put('/:id', private.checkJWT, serviceCatways.update);
 
+// Permet de supprimer un catway
 router.delete('/:id', private.checkJWT, serviceCatways.delete);
-
-router.use('/:catwayNumber/reservations', reservationsRouter);
 
 module.exports = router;

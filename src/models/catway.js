@@ -13,6 +13,7 @@ const Catway = new catwaySchema ({
         type: String, 
         trim: true, 
         required: [true, 'le type du catway est obligatoire'], 
+        // enum permet de limiter ce champ aux possibilités énumérées, ici "long" ou "short"
         enum: ['long', 'short']
     }, 
     catwayState: {
@@ -20,6 +21,7 @@ const Catway = new catwaySchema ({
         trim: true
     }
 }, {
+    // Pour rajouter createdAt & updateAt
     timestamps: true
 });
 

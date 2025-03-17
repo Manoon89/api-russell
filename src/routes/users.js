@@ -5,6 +5,7 @@ const private = require('../middlewares/private');
 
 const serviceUsers = require('../services/users')
 
+// Permet d'accéder à la page de gestion des utilisateurs
 router.get('/manage', private.checkJWT, async (req, res) => {
 
     try {
@@ -17,11 +18,13 @@ router.get('/manage', private.checkJWT, async (req, res) => {
     }
 });
 
+// Permet d'accéder à la page d'ajout d'un utilisateur
 router.get('/add', private.checkJWT, (req, res) => {
   res.render('addUser');
 });
-router.post('/', serviceUsers.add);
+router.post('/', private.checkJWT, serviceUsers.add);
 
+// Permet d'accéder à la page des détails d'un utilisateur (sauf le mot de passe)
 router.get('/details/:email', private.checkJWT, async (req, res) => {
   try {
       const user = await User.findOne({ email: req.params.email }); // Recherche par email
@@ -36,8 +39,10 @@ router.get('/details/:email', private.checkJWT, async (req, res) => {
 });
 router.get('/:email', private.checkJWT, serviceUsers.getByEmail);
 
+// Permet d'accéder à la liste de tous les utilisateurs
 router.get('/', private.checkJWT, serviceUsers.getAll);
 
+// Permet d'accéder à la page de modification d'un utilisateur
 router.get('/edit/:email', private.checkJWT, async (req, res) => {
   try {
       const user = await User.findOne({ email: req.params.email }); // Recherche par email
@@ -52,15 +57,10 @@ router.get('/edit/:email', private.checkJWT, async (req, res) => {
 });
 router.put('/:email', private.checkJWT, serviceUsers.update);
 
+// Permet de supprimer un utilisateur
 router.delete('/:email', private.checkJWT, serviceUsers.delete);
 
-/* importé avec express-generator. On garde en commentaire au cas où. 
-GET users listing. 
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
-*/
-
+// Permet d'accéder à l'authentification d'un utilisateur sur la page d'accueil
 router.post('/authenticate', serviceUsers.authenticate);
 
 module.exports = router;
