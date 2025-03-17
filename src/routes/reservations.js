@@ -3,6 +3,10 @@ const router = express.Router({mergeParams: true});
 
 const serviceReservations = require('../services/reservations')
 
+router.get('/manage', (req, res) => {
+    res.render('reservations');
+  });
+
 router.post('/', serviceReservations.add);
 router.get('/', serviceReservations.getAll);
 

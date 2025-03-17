@@ -4,6 +4,10 @@ const private = require('../middlewares/private');
 
 const serviceUsers = require('../services/users')
 
+router.get('/manage', /*private.checkJWT, */(req, res) => {
+  res.render('users', { user: req.session?.user || null });
+});
+
 router.post('/', serviceUsers.add);
 router.get('/:email', private.checkJWT, serviceUsers.getByEmail);
 router.get('/', private.checkJWT, serviceUsers.getAll);
