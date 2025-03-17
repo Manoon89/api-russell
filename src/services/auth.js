@@ -29,10 +29,16 @@ exports.login = async (req, res, next) => {
         }
 
         const token = jwt.sign(
-            { userId: user._id, email: user.email}, 
+            { userId: user._id, email: user.email, username: user.username}, 
             process.env.SECRET_KEY, 
             {expiresIn: '1h'}
         );
+
+        res.cookie('authToken', token, {
+            httpOnly: true, 
+            secure: true, 
+            maxAge: 60 * 60 * 1000
+        });
 
         console.log('Utilisateur connecté avec succès');
         return res.redirect('/dashboard');
@@ -45,5 +51,6 @@ exports.login = async (req, res, next) => {
 };
 
 exports.logout = (req, res, next) => {
-    return res.status(200).json('logout_success');
+    res.clearCookie('authToken');
+    res.status(200).json({ message: 'logout_success' });
 }

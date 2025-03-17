@@ -9,18 +9,42 @@
 <body>
     <header>
         <h1>Gestion des utilisateurs - Port de plaisance de Russel</h1>
+        <nav>
+            <ul>
+                <li>Créer un nouvel utilisateur</li>
+                <li>Lister les utilisateurs</li>
+                <li>Consulter un utilisateur</li>
+                <li>Modifier un utilisateur</li>
+                <li>Supprimer un utilisateur</li>
+                <li><a href="/dashboard">Retour au tableau de bord</a></li>
+                <li><a href="/auth/logout">Déconnexion</a></li>
+            </ul>
+        </nav>
     </header>
 
     <main>
 
-        <ul>
-            <li>Créer un nouvel utilisateur</li>
-            <li>Lister les utilisateurs</li>
-            <li>Consulter un utilisateur</li>
-            <li>Modifier un utilisateur</li>
-            <li>Supprimer un utilisateur</li>
-        </ul>
+        <table>
+            
+            <caption>Liste des utilisateurs</caption>
 
+            <thead>
+                <tr>
+                    <th>Nom d'utilisateur</th>
+                    <th>Email de l'utilisateur</th>
+                 </tr>
+            </thead>
+
+            <tbody>
+                <% users.forEach(function(user) { %>
+                    <tr>
+                        <td><%= user.username %></td>
+                        <td><%= user.email %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+        
     </main>
 
     <footer>

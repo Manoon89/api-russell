@@ -9,17 +9,43 @@
 <body>
     <header>
         <h1>Gestion des catways - Port de plaisance de Russel</h1>
+        <nav>
+            <ul>
+                <li>Créer un catway</li>
+                <li>Voir l'ensemble des catways</li>
+                <li>Consulter un catway</li>
+                <li>Modifier la description d'un catway</li>
+                <li>Supprimer un catway</li>
+                <li><a href="/dashboard">Retour au tableau de bord</a></li>
+                <li><a href="/auth/logout">Déconnexion</a></li>
+            </ul>
+        </nav>
     </header>
 
     <main>
 
-        <ul>
-            <li>Créer un catway</li>
-            <li>Voir l'ensemble des catways</li>
-            <li>Consulter un catway</li>
-            <li>Modifier la description d'un catway</li>
-            <li>Supprimer un catway</li>
-        </ul>
+        <table>
+            
+            <caption>Liste des catways du port</caption>
+
+            <thead>
+                <tr>
+                    <th>Numéro de catway</th>
+                    <th>Type de catway</th>
+                    <th>Etat du catway</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <% catways.forEach(function(catway) { %>
+                    <tr>
+                        <td><%= catway.catwayNumber %></td>
+                        <td><%= catway.catwayType %></td>
+                        <td><%= catway.catwayState %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
 
     </main>
 
