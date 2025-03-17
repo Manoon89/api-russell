@@ -3,7 +3,7 @@ const SECRET_KEY = process.env.SECRET_KEY;
 
 exports.checkJWT = async (req, res, next) => {
 
-    let token = req.headers['x-access-token'] || req.headers['authorization'];
+    let token = req.cookies.authToken || req.headers['authorization'];
 
     if(!!token && token.startsWith('Bearer')) {
         token = token.slice(7, token.lenght); 
@@ -18,7 +18,7 @@ exports.checkJWT = async (req, res, next) => {
             
             else {
                 req.decoded = decoded; 
-                const expiresIn = 24*60*60*1000;
+                const expiresIn = 60*60*1000 ;
                 const newToken = jwt.sign ({
                     user: decoded.user
                 },

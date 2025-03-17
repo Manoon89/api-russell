@@ -9,17 +9,48 @@
 <body>
     <header>
         <h1>Gestion des réservations - Port de plaisance de Russel</h1>
+        <nav>
+            <ul>
+                <li>Créer une nouvelle réservation</li>
+                <li>Lister l'ensemble des réservations du catway</li>
+                <li>Consulter une réservation</li>
+                <li>Modifier une réservation</li>
+                <li>Supprimer une réservation</li>
+                <li><a href="/dashboard">Retour au tableau de bord</a></li>
+                <li><a href="/auth/logout">Déconnexion</a></li>
+            </ul>
+        </nav>
     </header>
 
     <main>
         
-        <ul>
-            <li>Créer une nouvelle réservation</li>
-            <li>Lister l'ensemble des réservations du catway</li>
-            <li>Consulter une réservation</li>
-            <li>Modifier une réservation</li>
-            <li>Supprimer une réservation</li>
-        </ul>
+        <table>
+            
+            <caption>Liste des réservations en cours</caption>
+
+            <thead>
+                <tr>
+                    <th>Numéro de catway</th>
+                    <th>Nom du client</th>
+                    <th>Nom du bateau</th>
+                    <th>Date de début</th>
+                    <th>Date de fin</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <% reservations.forEach(function(reservation) { %>
+                    <tr>
+                        <td><%= reservation.catwayNumber %></td>
+                        <td><%= reservation.clientName %></td>
+                        <td><%= reservation.boatName %></td>
+                        <td><time datetime="<%= reservation.startDate %>"><%= reservation.startDate %></time></td>
+                        <td><time datetime="<%= reservation.endDate %>"><%= reservation.endDate %></time></td> 
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+
 
     </main>
 
