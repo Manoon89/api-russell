@@ -5,6 +5,7 @@ const private = require('../middlewares/private');
 
 const serviceReservations = require('../services/reservations')
 
+// Route pour accéder à la gestion des réservations
 router.get('/manage', private.checkJWT, async (req, res) => {
 
     try {
@@ -18,16 +19,19 @@ router.get('/manage', private.checkJWT, async (req, res) => {
     }
 });
 
+// Route pour accéder à la page d'ajout d'une réservation
 router.get('/add', private.checkJWT, (req, res) => {
   res.render('addReservation');
 });
 router.post('/', serviceReservations.add);
 
+// Permet d'accéder à la liste de toutes les réservations
 router.get('/', serviceReservations.getAll);
 
+// Route pour accéder à la page des détails de la réservation
 router.get('/details/:id', private.checkJWT, async (req, res) => {
     try {
-        const reservation = await Reservation.findById(req.params.id); // Recherche la réservation par son ID
+        const reservation = await Reservation.findById(req.params.id); 
         if (!reservation) {
             return res.redirect('/reservations/manage?error=Réservation introuvable');
         }
@@ -39,6 +43,7 @@ router.get('/details/:id', private.checkJWT, async (req, res) => {
 });
 router.get('/:id', serviceReservations.getOne);
 
+// Route pour accéder à la page de modification de la réservation
 router.get('/edit/:id', private.checkJWT, async (req, res) => {
     try {
         const reservation = await Reservation.findById(req.params.id); // Recherche la réservation par son ID
@@ -53,6 +58,7 @@ router.get('/edit/:id', private.checkJWT, async (req, res) => {
 });
 router.put('/:id', serviceReservations.update);
 
+// Permet de supprimer une réservation
 router.delete('/:id', serviceReservations.delete);
 
 module.exports = router;

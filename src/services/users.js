@@ -15,7 +15,23 @@ exports.add = async (req, res, next) => {
         return res.redirect('/users/manage');
     }
     catch (error) {
-        return res.status(501).json(error);
+        console.error('Erreur de validation lors de la création de l\'utilisateur :', error);
+
+        // Vérifie si c'est une erreur de validation
+        if (error.name === 'ValidationError') {
+            const errorMessages = Object.values(error.errors).map(err => err.message); // Récupère les messages d'erreur
+
+            return res.render('addUser', { 
+                errors: errorMessages, // Passe les erreurs à la vue
+                formData: temp // Passe les données saisies pour les réafficher dans le formulaire
+            });
+        }
+
+        // Pour tout autre type d'erreur, renvoyer une réponse générique
+        return res.render('addUser', { 
+            errors: ['Une erreur inconnue est survenue. Veuillez réessayer.'],
+            formData: temp
+        });
     }    
 }
 

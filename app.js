@@ -1,6 +1,3 @@
-/* pas utilisé pour l'instant 
- const createError = require('http-errors');
- */
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -11,14 +8,6 @@ const bodyParser = require('body-parser');
 
 const indexRouter = require('./src/routes/index');
 const authRouter = require('./src/routes/auth');
-
-/*
-const usersRouter = require('./src/routes/users');
-const catwaysRouter = require('./src/routes/catways');
-const reservationsRouter = require('./src/routes/reservations');
-const authRouter = require('./src/routes/auth');
-const dashboardRouter = require('./src/routes/dashboard');
-*/
 
 const mongodb = require('./db/mongo');
 
@@ -47,19 +36,6 @@ app.use(bodyParser.json());
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
-/*
-app.use('/users', usersRouter);
-app.use('/catways', catwaysRouter);
-app.use('/reservations', reservationsRouter);
-app.use('/auth', authRouter);
-app.use('/dashboard', dashboardRouter);
-*/
-
-/* use function learned in course instead
-catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-}); */
 
 app.use(function(req, res, next){
   res.status(404).json({name: 'API', version: '1.0', status: 404, message: 'not_found'});
