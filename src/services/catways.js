@@ -57,41 +57,44 @@ exports.getOne = async (req, res, next) => {
 
 // Modifier l'état d'un catway
 exports.update = async (req, res, next) => {
-    const id = req.params.catwayNumber
-    const temp = ({
-        catwayState: req.body.catwayState, 
-    });
+    const id = req.params.id; // Récupère l'ID du catway
+    const updatedState = req.body.catwayState; // Récupère la nouvelle valeur pour catwayState
 
     try {
-        let catway = await Catway.findOne(id);
+        const catway = await Catway.findById(id);
 
-        if (catway) {
-            Object.keys(temp).forEach((key) => {
-                if (!!temp[key]){
-                    catway [key] = temp [key];
-                }
-            });
-
-            await catway.save();
-            return res.status(201).json(catway);
+        if (!catway) {
+            console.error('Catway introuvable pour l\'ID :', id);
+            return res.redirect('/catways/manage?error=Catway introuvable');
         }
 
-        return res.status(404).json('catway_not_found');
+        catway.catwayState = updatedState; // Modifie uniquement catwayState
+        await catway.save(); // Sauvegarde les modifications
+
+        console.log('Catway mis à jour avec succès :', catway);
+        return res.redirect('/catways/manage?success=Catway mis à jour avec succès');
+    } catch (error) {
+        console.error('Erreur lors de la mise à jour du catway :', error);
+        return res.redirect('/catways/manage?error=Erreur lors de la mise à jour');
     }
-    catch (error) {
-        return res.status(501).json(error);
-    }
-}
+};
 
 // Supprimer un catway
 exports.delete = async (req, res, next) => {
-    const id = req.params.catwayNumber
+    const id = req.params.id
     
     try {
-        await Catway.deleteOne(id);
-        return res.status(204).json('delete_ok');
+        const result = await Catway.findOneAndDelete({ _id: id });
+
+        if (!result) {
+            console.error('Catway introuvable pour l\'ID :', id);
+            return res.redirect('/catways/manage?error=Catway introuvable');
+        }
+
+        console.log('Catway supprimé avec succès :', result);
+        return res.redirect('/catways/manage?success=Catway supprimé avec succès');
+    } catch (error) {
+        console.error('Erreur lors de la suppression :', error);
+        return res.redirect('/catways/manage?error=Erreur lors de la suppression');
     }
-    catch (error) {
-        return res.status(501).json(error);
-    }
-}
+};

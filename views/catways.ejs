@@ -30,6 +30,7 @@
                     <th>Numéro de catway</th>
                     <th>Type de catway</th>
                     <th>Etat du catway</th>
+                    <th>Modifier / Supprimer</th>
                 </tr>
             </thead>
 
@@ -39,6 +40,16 @@
                         <td><%= catway.catwayNumber %></td>
                         <td><%= catway.catwayType %></td>
                         <td><%= catway.catwayState %></td>
+                        <td>
+                            
+                            <button onclick="window.location.href='/catways/details/<%= catway._id %>'">Détails</button>
+                            
+                            <button onclick="window.location.href='/catways/edit/<%= catway._id %>'">Modifier</button>
+                            
+                            <form action="/catways/<%= catway._id %>?_method=DELETE" method="POST">
+                                <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce catway ?')">Supprimer</button>
+                            </form>
+                        </td>
                     </tr>
                 <% }); %>
             </tbody>

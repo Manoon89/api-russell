@@ -32,6 +32,7 @@
                     <th>Nom du bateau</th>
                     <th>Date de début</th>
                     <th>Date de fin</th>
+                    <th>Modifier / Supprimer</th>
                 </tr>
             </thead>
 
@@ -43,6 +44,13 @@
                         <td><%= reservation.boatName %></td>
                         <td><time datetime="<%= reservation.startDate %>"><%= new Date(reservation.startDate).toLocaleDateString('fr-FR') %></time></td>
                         <td><time datetime="<%= reservation.endDate %>"><%= new Date(reservation.endDate).toLocaleDateString('fr-FR') %></time></td> 
+                        <td>
+                            <button onclick="window.location.href='/reservations/details/<%= reservation._id %>'">Détails</button>
+                            <button onclick="window.location.href='/reservations/edit/<%= reservation._id %>'">Modifier</button>
+                            <form action="/reservations/<%= reservation._id %>?_method=DELETE" method="POST">
+                                <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette réservation ?')">Supprimer</button>
+                            </form>    
+                        </td>
                     </tr>
                 <% }); %>
             </tbody>

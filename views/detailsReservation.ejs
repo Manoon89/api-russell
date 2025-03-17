@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails de la Réservation</title>
+</head>
+
+<body>
+
+    <h1>Détails de la Réservation</h1>
+
+    <p><strong>ID :</strong> <%= reservation._id %></p>
+    <p><strong>Numéro de catway :</strong> <%= reservation.catwayNumber %></p>
+    <p><strong>Nom du client :</strong> <%= reservation.clientName %></p>
+    <p><strong>Nom du bateau :</strong> <%= reservation.boatName %></p>
+    <p><strong>Date de début :</strong> <%= new Date(reservation.startDate).toLocaleDateString('fr-FR') %></p>
+    <p><strong>Date de fin :</strong> <%= new Date(reservation.endDate).toLocaleDateString('fr-FR') %></p>
+    <p><strong>Créé le :</strong> <%= new Date(reservation.createdAt).toLocaleDateString('fr-FR') %></p>
+    <p><strong>Dernière mise à jour :</strong> <%= new Date(reservation.updatedAt).toLocaleDateString('fr-FR') %></p>
+
+    <button onclick="window.location.href='/reservations/manage'">Retour à la liste</button>
+
+</body>
+</html>

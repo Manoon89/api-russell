@@ -9,6 +9,7 @@ router.get('/manage', private.checkJWT, async (req, res) => {
 
     try {
         const reservations = await Reservation.find();
+        console.log('Réservations récupérées :', reservations);
         
         return res.render('reservations', {reservations: reservations});
     }
@@ -20,14 +21,38 @@ router.get('/manage', private.checkJWT, async (req, res) => {
 router.get('/add', private.checkJWT, (req, res) => {
   res.render('addReservation');
 });
-
 router.post('/', serviceReservations.add);
+
 router.get('/', serviceReservations.getAll);
 
-/* en commentaire en attendant de compléter les fichiers du dossier service
-router.get('/:idReservation', serviceReservations.getOne);
-router.put('/:id/reservations', serviceReservations.update);
-router.delete('/:id/reservations/:idReservation', serviceReservations.delete);
-*/
+router.get('/details/:id', private.checkJWT, async (req, res) => {
+    try {
+        const reservation = await Reservation.findById(req.params.id); // Recherche la réservation par son ID
+        if (!reservation) {
+            return res.redirect('/reservations/manage?error=Réservation introuvable');
+        }
+        return res.render('detailsReservation', { reservation: reservation });
+    } catch (error) {
+        console.error('Erreur lors de la récupération des détails :', error);
+        return res.redirect('/reservations/manage?error=Erreur lors de la récupération des détails');
+    }
+});
+router.get('/:id', serviceReservations.getOne);
+
+router.get('/edit/:id', private.checkJWT, async (req, res) => {
+    try {
+        const reservation = await Reservation.findById(req.params.id); // Recherche la réservation par son ID
+        if (!reservation) {
+            return res.redirect('/reservations/manage?error=Réservation introuvable');
+        }
+        return res.render('editReservation', { reservation: reservation });
+    } catch (error) {
+        console.error('Erreur lors de la récupération pour modification :', error);
+        return res.redirect('/reservations/manage?error=Erreur lors de la récupération pour modification');
+    }
+});
+router.put('/:id', serviceReservations.update);
+
+router.delete('/:id', serviceReservations.delete);
 
 module.exports = router;

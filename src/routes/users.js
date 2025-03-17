@@ -20,11 +20,38 @@ router.get('/manage', private.checkJWT, async (req, res) => {
 router.get('/add', private.checkJWT, (req, res) => {
   res.render('addUser');
 });
-
 router.post('/', serviceUsers.add);
+
+router.get('/details/:email', private.checkJWT, async (req, res) => {
+  try {
+      const user = await User.findOne({ email: req.params.email }); // Recherche par email
+      if (!user) {
+          return res.redirect('/users/manage?error=Utilisateur introuvable');
+      }
+      return res.render('detailsUser', { user: user });
+  } catch (error) {
+      console.error('Erreur lors de la récupération des détails :', error);
+      return res.redirect('/users/manage?error=Erreur lors de la récupération des détails');
+  }
+});
 router.get('/:email', private.checkJWT, serviceUsers.getByEmail);
+
 router.get('/', private.checkJWT, serviceUsers.getAll);
+
+router.get('/edit/:email', private.checkJWT, async (req, res) => {
+  try {
+      const user = await User.findOne({ email: req.params.email }); // Recherche par email
+      if (!user) {
+          return res.redirect('/users/manage?error=Utilisateur introuvable');
+      }
+      return res.render('editUser', { user: user });
+  } catch (error) {
+      console.error('Erreur lors de la récupération pour modification :', error);
+      return res.redirect('/users/manage?error=Erreur lors de la récupération pour modification');
+  }
+});
 router.put('/:email', private.checkJWT, serviceUsers.update);
+
 router.delete('/:email', private.checkJWT, serviceUsers.delete);
 
 /* importé avec express-generator. On garde en commentaire au cas où. 
