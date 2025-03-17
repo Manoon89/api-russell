@@ -68,7 +68,22 @@ exports.getOne = async (req, res, next) => {
     }
 }   
 
-// Lister l'ensemble des réservations
+/**
+ * Cette fonction récupère toutes les réservations liées à un numéro de Catway. 
+ * 
+ * Elle va : 
+ * - extraire le numéro du catway, 
+ * - rechercher toutes les réservations correspondant à ce catway, 
+ * - retourner les réservations avec un code d'état 200 en cas de succès, 
+ * - retourner une erreur 501 en cas de problème serveur. 
+ * 
+ * 
+ * @param {Object} req Requête (http) envoyée par le client au serveur
+ * @param {Object} res Réponse (http) que le serveur envoie au client
+ * @param {Object} next Objet utilisé pour passer la main au middleware suivant
+ * 
+ * @returns Envoie une réponse JSON avec les réservations ou un meessage d'erreur. 
+ */
 exports.getAll = async (req, res, next) => {
 
     const catwayId = req.params.catwayNumber;
@@ -82,8 +97,21 @@ exports.getAll = async (req, res, next) => {
     }
 }
 
-// Modifier l'état d'une réservation
-
+/**
+ * Cette fonction met à jour une réservation dans la base de données. 
+ * 
+ * Elle va : 
+ * - Extraire l'id de la réservation, 
+ * - Récupérer les nouvelles données de réservations saisies, 
+ * - Mettre à jour la réservation correspondante dans la base de données, 
+ * - Rediriger vers la page de gestion des réservations avec un message de succès, ou rediriger avec un message d'erreur. 
+ * 
+ * @param {Object} req Requête (http) envoyée par le client au serveur
+ * @param {Object} res Réponse (http) que le serveur envoie au client
+ * @param {Object} next Objet utilisé pour passer la main au middleware suivant
+ * 
+ * @returns Redirige vers 'reservations/manage' avec un message de succès ou d'erreur. 
+ */
 exports.update = async (req, res, next) => {
     const id = req.params.id;
 
@@ -111,7 +139,21 @@ exports.update = async (req, res, next) => {
     }
 };
 
-// Supprimer une réservation
+/**
+ * Cette fonction supprime une réservation dans la base de données. 
+ * 
+ * Elle va : 
+ * - Extraire l'id de la réservation
+ * - Chercher & supprimer la réservation
+ * - Rediriger vers la page de gestion des réservations en cas de succès
+ * - Retourner une erreur 404 si la réservation est introuvable ou une erreur 501 en cas de problème de serveur. 
+ * 
+ * @param {Object} req Requête (http) envoyée par le client au serveur
+ * @param {Object} res Réponse (http) que le serveur envoie au client
+ * @param {Object} next Objet utilisé pour passer la main au middleware suivant
+ *  
+ * @returns redirige vers '/reservations/manage' avec un message de succès ou d'erreur. 
+ */
 exports.delete = async (req, res, next) => {
     const id = req.params.id;
     
