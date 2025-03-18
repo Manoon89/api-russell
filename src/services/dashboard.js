@@ -1,20 +1,6 @@
 const Reservation = require('../models/reservation');
 
 /**
- * @swagger
- * /dashboard:
- *   get:
- *     summary: Affiche le tableau de bord de l'utilisateur connecté avec la liste des réservations
- *     tags: [Dashboard]
- *     responses:
- *       200:
- *         description: Vue du tableau de bord affichée avec succès
- *         content:
- *           text/html:
- *             schema:
- *               type: string
- *       500:
- *         description: Erreur interne lors de la récupération des données
  * 
  * Cette fonction renvoie à la page du tableau de bord. 
  * 

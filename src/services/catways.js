@@ -1,31 +1,6 @@
 const Catway = require('../models/catway');
 
 /**
- * @swagger
- * /catways:
- *   get:
- *     summary: Récupère tous les catways dans la base de données
- *     tags: [Catways]
- *     parameters:
- *       - in: query
- *         name: success
- *         schema:
- *           type: string
- *         description: Message de succès (facultatif)
- *       - in: query
- *         name: error
- *         schema:
- *           type: string
- *         description: Message d'erreur (facultatif)
- *     responses:
- *       200:
- *         description: Liste des catways récupérée avec succès
- *         content:
- *           text/html:
- *             schema:
- *               type: string
- *       500:
- *         description: Erreur serveur lors de la récupération
  * 
  * Cette fonction récupère tous les catways présents dans la base de données & les rend dans la vue.
  * 
@@ -59,38 +34,6 @@ exports.getAll = async (req, res, next) => {
 }
 
 /**
- *  @swagger
- * /catways:
- *   post:
- *     summary: Ajoute un nouveau catway à la base de données
- *     tags: [Catways]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               catwayNumber:
- *                 type: integer
- *                 description: Numéro unique du catway
- *               catwayType:
- *                 type: string
- *                 description: Type du catway (short/long)
- *               catwayState:
- *                 type: string
- *                 description: Etat du catway
- *             required:
- *               - catwayNumber
- *               - catwayType
- *               - catwayState
- *     responses:
- *       201:
- *         description: Catway créé avec succès
- *       400:
- *         description: Erreur de validation des données envoyées
- *       500:
- *         description: Erreur serveur lors de la création
  * 
  * Cette fonction ajoute un nouveau catway dans la base de données. 
  * 
@@ -137,14 +80,6 @@ exports.add = async (req, res, next) => {
 }
 
 /**
- * @swagger
- * /catways/add:
- *   get:
- *     summary: Affiche la page d'ajout d'un nouveau catway
- *     tags: [Catways]
- *     responses:
- *       200:
- *         description: Vue de création de catway chargée
  * 
  * Cette fonction rend la vue de la page d'ajout d'un Catway. 
  * 
@@ -156,27 +91,6 @@ exports.goToAdd = (req, res) => {
 }
 
 /**
- * @swagger
- * /catways/{id}:
- *   get:
- *     summary: Récupère les détails d'un catway spécifique
- *     tags: [Catways]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *         description: Identifiant unique du catway
- *     responses:
- *       200:
- *         description: Catway récupéré avec succès
- *       404:
- *         description: Catway introuvable
- *       500:
- *         description: Erreur serveur
- * 
- * Cette fonction récupère un catway spécifique de la base de données avec son numéro d'identifiant. 
  * 
  * Elle va : 
  * - Extraire le numéro d'identifiant du catway, 
@@ -208,25 +122,6 @@ exports.getOne = async (req, res, next) => {
 }
 
 /**
- * @swagger
- * /catways/{id}/edit:
- *   get:
- *     summary: Accède à la page de modification d'un Catway
- *     tags: [Catways]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *         description: Identifiant unique du Catway
- *     responses:
- *       200:
- *         description: Vue de modification du Catway chargée avec succès
- *       404:
- *         description: Catway introuvable
- *       500:
- *         description: Erreur interne lors de la récupération du Catway
  * 
  * Cette fonction permet d'accéder à la page de modification d'un Catway. 
  * 
@@ -257,35 +152,6 @@ exports.goToEdit = async (req, res) => {
 };
 
 /**
- * @swagger
- * /catways/{id}:
- *   put:
- *     summary: Met à jour l'état d'un catway existant
- *     tags: [Catways]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *         description: Identifiant unique du catway
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               catwayState:
- *                 type: string
- *                 description: Nouvel état du catway
- *     responses:
- *       200:
- *         description: Catway mis à jour avec succès
- *       404:
- *         description: Catway introuvable
- *       500:
- *         description: Erreur serveur lors de la mise à jour
  * 
  * Cette fonction met à jour uniquement l'état d'un catway dans la base de données. 
  * 
@@ -326,25 +192,6 @@ exports.update = async (req, res, next) => {
 };
 
 /**
- * @swagger
- * /catways/{id}:
- *   delete:
- *     summary: Supprime un catway
- *     tags: [Catways]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *         description: Identifiant unique du catway
- *     responses:
- *       200:
- *         description: Catway supprimé avec succès
- *       404:
- *         description: Catway introuvable
- *       500:
- *         description: Erreur serveur lors de la suppression 
  * 
  * Cette fonction supprime un catway de la base de données. 
  * 

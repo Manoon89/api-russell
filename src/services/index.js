@@ -1,12 +1,4 @@
 /**
- * @swagger
- * /:
- *   get:
- *     summary: Affiche la page d'accueil de l'application
- *     tags: [Index]
- *     responses:
- *       200:
- *         description: Page d'accueil affichée avec succès
  * 
  * Cette fonction renvoie sur la page d'accueil. 
  * 
@@ -18,36 +10,6 @@ exports.goToIndex = async (req, res) => {
 }
 
 /**
- * @swagger
- * /login:
- *   post:
- *     summary: Authentifie un utilisateur en vérifiant son email et son mot de passe
- *     tags: [Authentication]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               email:
- *                 type: string
- *                 description: Adresse email de l'utilisateur
- *               password:
- *                 type: string
- *                 description: Mot de passe de l'utilisateur
- *             required:
- *               - email
- *               - password
- *     responses:
- *       200:
- *         description: Connexion réussie, redirection vers le tableau de bord
- *       400:
- *         description: Informations d'identification manquantes
- *       401:
- *         description: Mot de passe incorrect
- *       404:
- *         description: Utilisateur non trouvé
  * 
  * Fonction qui gère la connexion d'un utilisateur en vérifiant ses informations d'identification. 
  * 
