@@ -5,9 +5,7 @@ const authService = require('../services/auth');
 router.post('/login', authService.login);
 
 // Permet de rendre la vue "dashboard" une fois l'authentification réussie. 
-router.get('/dashboard', (req, res) => {
-    res.render('dashboard', { user: req.session?.user || null });
-});
+router.get('/dashboard', authService.goToDashboard);
 
 router.get('/logout', authService.logout);
 

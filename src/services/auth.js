@@ -3,6 +3,18 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
 /**
+ * Cette fonction affiche la page du tableau de bord, en passant les informations de l'utilisateur connecté. 
+ * 
+ * @param {Object} req Requête (http) envoyée par le client au serveur
+ * @param {Object} res Réponse (http) que le serveur envoie au client
+ * 
+ * @returns Rend la vue ('dashboard') en passant les informations de l'utilisateur connecté. 
+ */
+exports.goToDashboard = (req, res) => {
+    res.render('dashboard', { user: req.session?.user || null });
+};
+
+/**
  * Cette fonction permet d'authentifier un utilisateur (présent sur la base de données) en vérifiant son email & son mot de passe. 
  * Elle génère un token si les informations d'authentification sont valides. 
  * 
@@ -21,7 +33,6 @@ const User = require('../models/user');
  * 
  * @throws {Error} Retourne un statut 500 ainsi qu'un message d'erreur en cas de problème serveur. 
  */
-
 exports.login = async (req, res, next) => {
     const {email, password} = req.body; 
 
@@ -45,7 +56,7 @@ exports.login = async (req, res, next) => {
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             console.log('Mot de passe incorrect');
-            return res.status(401).json('wrong_credentials');
+            return res.status(401).json('Mot de passe incorrect');
         }
 
         const token = jwt.sign(
@@ -78,5 +89,5 @@ exports.login = async (req, res, next) => {
  */
 exports.logout = (req, res, next) => {
     res.clearCookie('authToken');
-    res.status(200).json({ message: 'logout_success' });
+    res.status(200).json({ message: 'Déconnexion réussie' });
 }
