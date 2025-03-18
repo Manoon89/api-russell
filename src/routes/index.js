@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
+const serviceIndex = require('../services/index')
+
 const userRoute = require('../routes/users');
 const catwayRoute = require('../routes/catways');
 const reservationRoute = require('../routes/reservations');
@@ -15,21 +17,8 @@ router.use('/dashboard', dashboardRoute);
 router.use('/auth', authRoute);
 
 // On renvoie sur la vue "index"
-router.get('/', async (req, res) => {
-    res.render('index')
-})
+router.get('/', serviceIndex.goToIndex);
 
-router.post('/login', async(req, res) => {
-  const {email, password} = req.body; 
-  const user = await User.findOne({ email, password });
-
-  if (user) {
-    res.render('dashboard', {username: user.username})
-  }
-  else {
-    res.redirect('/', { error: 'Email ou mot de passe incorrect' });
-  }
-
-})
+router.post('/login', serviceIndex.login);
 
 module.exports = router;
