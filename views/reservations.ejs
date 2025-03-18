@@ -19,6 +19,13 @@
 
     <main>
 
+        <% if (error) { %>
+            <div><%= error %></div>
+        <% } %>
+        <% if (success) { %>
+            <div><%= success %></div>
+        <% } %>
+
         <button onclick="window.location.href='/reservations/add'">Ajouter une réservation</button>        
 
         <table>
@@ -45,7 +52,7 @@
                         <td><time datetime="<%= reservation.startDate %>"><%= new Date(reservation.startDate).toLocaleDateString('fr-FR') %></time></td>
                         <td><time datetime="<%= reservation.endDate %>"><%= new Date(reservation.endDate).toLocaleDateString('fr-FR') %></time></td> 
                         <td>
-                            <button onclick="window.location.href='/reservations/details/<%= reservation._id %>'">Détails</button>
+                            <button onclick="window.location.href='/reservations/<%= reservation._id %>'">Détails</button>
                             <button onclick="window.location.href='/reservations/edit/<%= reservation._id %>'">Modifier</button>
                             <form action="/reservations/<%= reservation._id %>?_method=DELETE" method="POST">
                                 <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette réservation ?')">Supprimer</button>

@@ -1,6 +1,39 @@
 const Reservation = require('../models/reservation');
 
 /**
+ * Cette fonction récupère toutes les réservations dans la base de données et les rend dans la vue. 
+ * 
+ * Elle va : 
+ * - Vérifier la présence de réservations dans la base de données
+ * - Renvoyer vers la vue de gestion des réservations si la requête est un succès
+ * - Renvoyer un message d'erreur si la requête n'a pas abouti
+ * 
+ * @param {Object} req Requête (http) envoyée par le client au serveur
+ * @param {Object} res Réponse (http) que le serveur envoie au client
+ * 
+ * @returns REnvoie la vue de la page '/reservations". 
+ */
+exports.getAll = async (req, res) => {
+  
+    try {
+        const reservations = await Reservation.find();
+        const { error, success } = req.query;
+
+        console.log('Réservations récupérées :', reservations);
+        
+        return res.render('reservations', {
+            reservations: reservations, 
+            error: error || null, 
+            success: success || null        
+        });
+    }
+
+    catch (error) {
+        res.status(500).send(error.message);
+    }
+}
+
+/**
  * Cette fonction ajoute une nouvelle réservation dans la base de données. 
  * 
  * Elle va : 
@@ -13,7 +46,7 @@ const Reservation = require('../models/reservation');
  * @param {Object} res Réponse (http) que le serveur envoie au client
  * @param {Object} next Objet utilisé pour passer la main au middleware suivant
  * 
- * @returns Redirige vers '/reservations/manage' ou retourne une erreur. 
+ * @returns Redirige vers '/reservations' ou retourne une erreur. 
  */
 exports.add = async (req, res, next) => {
 
@@ -27,7 +60,7 @@ exports.add = async (req, res, next) => {
 
     try {
         let reservation = await Reservation.create(temp);
-        return res.redirect('/reservations/manage');
+        return res.redirect('/reservations/?success=Nouvelle réservation créée avec succès !');
     }
     catch (error) {
         return res.status(501).json(error);
@@ -38,13 +71,23 @@ exports.add = async (req, res, next) => {
 concerné est déjà réservé */
 
 /**
+ * Cette fonction rend la vue de la page d'ajout d'une réservation. 
+ * 
+ * @param {Object} req Requête (http) envoyée par le client au serveur
+ * @param {Object} res Réponse (http) que le serveur envoie au client
+ */
+exports.goToAdd = (req, res) => {
+    res.render('addReservation');
+}
+
+/**
  * Cette fonction permet de récupérer les détails d'une réservation, y compris sa date de création et sa date de modification. 
  * 
  * Elle va : 
- * - Extraire l'id de la réservation et le numéro de catway, 
+ * - Extraire l'id de la réservation, 
  * - Rechercher la réservation correspondante, 
- * - Retourner la réservation avec un code 200 en cas de succès, 
- * - Retourner une erreur 404 si la réservation est introuvable. 
+ * - Retourner la vue de la page des détails de la réservation en cas de succès, 
+ * - Retourner la vue de la page de gestion des réservations avec un message d'erreur en cas d'erreur. 
  * 
  * @param {Object} req Requête (http) envoyée par le client au serveur
  * @param {Object} res Réponse (http) que le serveur envoie au client
@@ -53,49 +96,47 @@ concerné est déjà réservé */
  * @returns Envoie une réponse JSON contenant la réservation ou un message d'erreur.
  */
 exports.getOne = async (req, res, next) => {
-    const catwayId = req.params.catwayNumber;
-    const idReservation = req.params.idReservation;
 
     try {
-        let reservation = await Reservation.findOne({ catwayId, idReservation });
-        if (reservation) {
-            return res.status(200).json(reservation);
+        const reservation = await Reservation.findById(req.params.id); 
+        if (!reservation) {
+            return res.redirect('/reservations?error=Réservation introuvable');
         }
-        return res.status(404).json('reservation_not_found');
-    }
-    catch(error) {
-        return res.status(501).json(error);
+        return res.render('detailsReservation', { reservation: reservation });
+
+    } catch (error) {
+        console.error('Erreur lors de la récupération des détails :', error);
+        return res.redirect('/reservations?error=Erreur lors de la récupération des détails');
     }
 }   
 
 /**
- * Cette fonction récupère toutes les réservations liées à un numéro de Catway. 
+ * Cette fonction permet d'aller sur la page de modification d'une réservation. 
  * 
  * Elle va : 
- * - extraire le numéro du catway, 
- * - rechercher toutes les réservations correspondant à ce catway, 
- * - retourner les réservations avec un code d'état 200 en cas de succès, 
- * - retourner une erreur 501 en cas de problème serveur. 
- * 
+ * - Chercher la réservation concernée via son ID, 
+ * - Retourner la page de modification de la réservation en cas de succès, 
+ * - Retourner la page de gestion des réservations avec un message d'erreur en cas d'erreur. 
  * 
  * @param {Object} req Requête (http) envoyée par le client au serveur
  * @param {Object} res Réponse (http) que le serveur envoie au client
- * @param {Object} next Objet utilisé pour passer la main au middleware suivant
- * 
- * @returns Envoie une réponse JSON avec les réservations ou un meessage d'erreur. 
+ *
  */
-exports.getAll = async (req, res, next) => {
-
-    const catwayId = req.params.catwayNumber;
+exports.goToEdit = async (req, res) => {
 
     try {
-        let reservations = await Reservation.find( {catwayNumber: catwayId});
-        return res.status(200).json(reservations);
+        const reservation = await Reservation.findById(req.params.id); // Recherche la réservation par son ID
+        if (!reservation) {
+            return res.redirect('/reservations?error=Réservation introuvable');
+        }
+        return res.render('editReservation', { reservation: reservation });
+
+    } catch (error) {
+        console.error('Erreur lors de la récupération pour modification :', error);
+        return res.redirect('/reservations?error=Erreur lors de la récupération pour modification');
     }
-    catch (error) {
-        return res.status(501).json(error);
-    }
-}
+};
+
 
 /**
  * Cette fonction met à jour une réservation dans la base de données. 
@@ -110,7 +151,7 @@ exports.getAll = async (req, res, next) => {
  * @param {Object} res Réponse (http) que le serveur envoie au client
  * @param {Object} next Objet utilisé pour passer la main au middleware suivant
  * 
- * @returns Redirige vers 'reservations/manage' avec un message de succès ou d'erreur. 
+ * @returns Redirige vers 'reservations' avec un message de succès ou d'erreur. 
  */
 exports.update = async (req, res, next) => {
     const id = req.params.id;
@@ -128,14 +169,14 @@ exports.update = async (req, res, next) => {
 
         if (!reservation) {
             console.error('Réservation introuvable pour l\'ID :', id);
-            return res.redirect('/reservations/manage?error=Réservation introuvable');
+            return res.redirect('/reservations?error=Réservation introuvable');
         }
 
         console.log('Réservation mise à jour avec succès :', reservation);
-        return res.redirect('/reservations/manage?success=Réservation modifiée avec succès');
+        return res.redirect('/reservations?success=Réservation modifiée avec succès');
     } catch (error) {
         console.error('Erreur lors de la mise à jour de la réservation :', error);
-        return res.redirect('/reservations/manage?error=Erreur lors de la mise à jour');
+        return res.redirect('/reservations?error=Erreur lors de la mise à jour');
     }
 };
 
@@ -152,7 +193,7 @@ exports.update = async (req, res, next) => {
  * @param {Object} res Réponse (http) que le serveur envoie au client
  * @param {Object} next Objet utilisé pour passer la main au middleware suivant
  *  
- * @returns redirige vers '/reservations/manage' avec un message de succès ou d'erreur. 
+ * @returns redirige vers '/reservations' avec un message de succès ou d'erreur. 
  */
 exports.delete = async (req, res, next) => {
     const id = req.params.id;
@@ -164,7 +205,7 @@ exports.delete = async (req, res, next) => {
             return res.status(404).json({ message: 'Réservation introuvable' });
         }
 
-        return res.redirect('/reservations/manage');
+        return res.redirect('/reservations?success=Réservation supprimée avec succès');
     }
     catch (error) {
         return res.status(501).json(error);
