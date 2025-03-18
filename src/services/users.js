@@ -146,11 +146,23 @@ exports.goToEdit = async (req, res) => {
  * @returns redirige vers '/users' avec un message de succès ou d'erreur. 
  */
 exports.update = async (req, res, next) => {
+
     const email = req.params.email; // Récupère l'email depuis les paramètres
     const updatedData = {
         username: req.body.username,
         email: req.body.email 
     };
+
+    if (req.body.password) {
+        try {
+            // Hache le nouveau mot de passe avant de l'ajouter à updatedData
+            const hashedPassword = await bcrypt.hash(req.body.password, 10);
+            updatedData.password = hashedPassword;
+        } catch (hashError) {
+            console.error('Erreur lors du hachage du mot de passe :', hashError);
+            return res.redirect('/users?error=Erreur lors du hachage du mot de passe');
+        }
+    }
 
     try {
         const user = await User.findOneAndUpdate({ email: email }, updatedData, { new: true, runValidators: true });
@@ -162,6 +174,7 @@ exports.update = async (req, res, next) => {
 
         console.log('Utilisateur mis à jour avec succès :', user);
         return res.redirect('/users?success=Utilisateur modifié avec succès');
+        
     } catch (error) {
         console.error('Erreur lors de la mise à jour de l\'utilisateur :', error);
         return res.redirect('/users?error=Erreur lors de la mise à jour');
