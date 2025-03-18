@@ -5,11 +5,14 @@ const logger = require('morgan');
 const cors = require('cors');
 const methodOverride = require('method-override');
 const bodyParser = require('body-parser');
+const swaggerUi = require('swagger-ui-express');
 
 const indexRouter = require('./src/routes/index');
 const authRouter = require('./src/routes/auth');
 
 const mongodb = require('./db/mongo');
+
+const swaggerDocs = require('./config/swagger');
 
 const app = express();
 
@@ -36,6 +39,9 @@ app.use(bodyParser.json());
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+console.log('Swagger UI disponible sur http://localhost:8080/api-docs');
 
 app.use(function(req, res, next){
   res.status(404).json({name: 'API', version: '1.0', status: 404, message: 'not_found'});

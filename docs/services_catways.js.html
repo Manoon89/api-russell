@@ -1,4 +1,32 @@
-const Catway = require('../models/catway');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: services/catways.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: services/catways.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const Catway = require('../models/catway');
 
 /**
  * @swagger
@@ -27,12 +55,12 @@ const Catway = require('../models/catway');
  *       500:
  *         description: Erreur serveur lors de la récupération
  * 
- * Cette fonction récupère tous les catways présents dans la base de données & les rend dans la vue.
+ * Cette fonction récupère tous les catways présents dans la base de données &amp; les rend dans la vue.
  * 
  * Elle va : 
  * - Chercher tous les catways présents dans la base de données (Catway.find()), 
- * - Récupérer les paramètres success & error à partir de la requête, 
- * - Rendre la vue avec la liste des catways & les éventuels messages de succès ou d'erreur, 
+ * - Récupérer les paramètres success &amp; error à partir de la requête, 
+ * - Rendre la vue avec la liste des catways &amp; les éventuels messages de succès ou d'erreur, 
  * - En cas d'erreur pendant la récupération des données, renvoie une erreur 500 avec le message correspondant. 
  * 
  * @param {Object} req Requête (http) envoyée par le client au serveur
@@ -46,7 +74,7 @@ exports.getAll = async (req, res, next) => {
         const catways = await Catway.find();
         const { error, success } = req.query;
         
-        // retourne la liste des catways présents dans la base de données & les éventuels messages de succès ou d'erreur
+        // retourne la liste des catways présents dans la base de données &amp; les éventuels messages de succès ou d'erreur
         return res.render('catways', {
             catways: catways, 
             error: error || null, 
@@ -95,10 +123,10 @@ exports.getAll = async (req, res, next) => {
  * Cette fonction ajoute un nouveau catway dans la base de données. 
  * 
  * Elle va : 
- * - Récupérer les données du formulaire (catwayNumber, catwayType & catwayState), 
+ * - Récupérer les données du formulaire (catwayNumber, catwayType &amp; catwayState), 
  * - Créer un nouvel enregistrement dans la base de données, 
  * - Rediriger l'utilisateur vers la page de gestion des catways en cas de réussite, 
- * - Gérer les erreurs & les afficher dans la vue de création. 
+ * - Gérer les erreurs &amp; les afficher dans la vue de création. 
  * 
  * @param {Object} req Requête (http) envoyée par le client au serveur
  * @param {Object} res Réponse (http) que le serveur envoie au client
@@ -293,7 +321,7 @@ exports.goToEdit = async (req, res) => {
  * - Récupérer l'identifiant du catway, 
  * - Chercher le catway dans la base de données, 
  * - Mettre à jour uniquement l'attribut 'catwayState' avec la nouvelle valeur, 
- * - Sauvegarder les informations & rediriger vers la page de gestion des catways, 
+ * - Sauvegarder les informations &amp; rediriger vers la page de gestion des catways, 
  * - Gérer les erreurs si le catway est introuvable ou en cas de problème serveur. 
  * 
  * @param {Object} req Requête (http) envoyée par le client au serveur
@@ -350,7 +378,7 @@ exports.update = async (req, res, next) => {
  * 
  * Elle va : 
  * - Récupérer l'id du catway, 
- * - Chercher & supprimer le catway correspondant, 
+ * - Chercher &amp; supprimer le catway correspondant, 
  * - Rediriger l'utilisateur vers la gestion des catways avec un message de réussite ou d'erreur. 
  * 
  * @param {Object} req Requête (http) envoyée par le client au serveur
@@ -376,4 +404,26 @@ exports.delete = async (req, res, next) => {
         console.error('Erreur lors de la suppression :', error);
         return res.redirect('/catways?error=Erreur lors de la suppression');
     }
-};
+};</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#add">add</a></li><li><a href="global.html#authenticate">authenticate</a></li><li><a href="global.html#checkJWT">checkJWT</a></li><li><a href="global.html#delete">delete</a></li><li><a href="global.html#getAll">getAll</a></li><li><a href="global.html#getByEmail">getByEmail</a></li><li><a href="global.html#getOne">getOne</a></li><li><a href="global.html#goToAdd">goToAdd</a></li><li><a href="global.html#goToDashboard">goToDashboard</a></li><li><a href="global.html#goToEdit">goToEdit</a></li><li><a href="global.html#goToIndex">goToIndex</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#logout">logout</a></li><li><a href="global.html#update">update</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Tue Mar 18 2025 11:43:34 GMT+0100 (heure normale d’Europe centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
