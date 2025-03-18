@@ -2,11 +2,11 @@
   "name": "api-port-russel",
   "version": "0.0.0",
   "private": true,
-  "doc": "jsdoc -c jsdoc.json",
   "scripts": {
     "start": "env-cmd -f ./env/.env nodemon ./bin/www",
     "dev": "env-cmd -f ./env/.env.dev nodemon ./bin/www",
-    "prod": "env-cmd -f ./env/.env.prod nodemon ./bin/www"
+    "prod": "env-cmd -f ./env/.env.prod nodemon ./bin/www",
+    "doc": "jsdoc -c jsdoc.json"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
