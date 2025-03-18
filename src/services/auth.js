@@ -56,7 +56,7 @@ exports.login = async (req, res, next) => {
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             console.log('Mot de passe incorrect');
-            return res.status(401).json('wrong_credentials');
+            return res.status(401).json('Mot de passe incorrect');
         }
 
         const token = jwt.sign(
