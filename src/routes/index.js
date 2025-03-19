@@ -31,6 +31,4 @@ router.use('/auth', authRoute);
  */
 router.get('/', serviceIndex.goToIndex);
 
-router.post('/login', serviceIndex.login);
-
 module.exports = router;

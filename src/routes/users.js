@@ -169,7 +169,4 @@ router.put('/:email', private.checkJWT, serviceUsers.update);
  */
 router.delete('/:email', private.checkJWT, serviceUsers.delete);
 
-// Permet d'accéder à l'authentification d'un utilisateur sur la page d'accueil
-router.post('/authenticate', serviceUsers.authenticate);
-
 module.exports = router;
