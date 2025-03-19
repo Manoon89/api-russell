@@ -5,21 +5,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Détails du Catway</title>
+    <meta name="robots" content="noindex">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 
 <body>
-    <h1>Détails du Catway</h1>
+    <h1 class="text-center">Détails du Catway</h1>
     <% if (typeof error !== 'undefined') { %>
         <p><%= error %></p>
     <% } %>
 
-    <p><strong>ID :</strong> <%= catway._id %></p>
-    <p><strong>Numéro :</strong> <%= catway.catwayNumber %></p>
-    <p><strong>Type :</strong> <%= catway.catwayType %></p>
-    <p><strong>État :</strong> <%= catway.catwayState %></p>
-    <p><strong>Créé le :</strong> <%= new Date(catway.createdAt).toLocaleDateString('fr-FR') %></p>
-    <p><strong>Dernière mise à jour :</strong> <%= new Date(catway.updatedAt).toLocaleDateString('fr-FR') %></p>
+    <p class="m-4"><strong>ID :</strong> <%= catway._id %></p>
+    <p class="m-4"><strong>Numéro :</strong> <%= catway.catwayNumber %></p>
+    <p class="m-4"><strong>Type :</strong> <%= catway.catwayType %></p>
+    <p class="m-4"><strong>État :</strong> <%= catway.catwayState %></p>
+    <p class="m-4"><strong>Créé le :</strong> <%= new Date(catway.createdAt).toLocaleDateString('fr-FR') %></p>
+    <p class="m-4"><strong>Dernière mise à jour :</strong> <%= new Date(catway.updatedAt).toLocaleDateString('fr-FR') %></p>
 
-    <button onclick="window.location.href='/catways'">Retour à la gestion des catways</button>
+    <button type="button" class="btn btn-dark m-4" onclick="window.location.href='/catways'">Retour à la gestion des catways</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
 </body>
 </html>
