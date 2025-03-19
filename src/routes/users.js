@@ -48,7 +48,7 @@ router.get('/add', private.checkJWT, serviceUsers.goToAdd);
  *          requestBody: 
  *              required: true
  *              content: 
- *                  application/json
+ *                  application/json:
  *                      schema: 
  *                           $ref: '#/components/schemas/User'
  *          reponses: 
@@ -130,7 +130,7 @@ router.get('/edit/:email', private.checkJWT, serviceUsers.goToEdit);
  *          requestBody: 
  *              required: true
  *              content: 
- *                  application/json
+ *                  application/json:
  *                      schema: 
  *                           $ref: '#/components/schemas/User'
  *          responses: 
