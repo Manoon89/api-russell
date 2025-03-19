@@ -15,6 +15,11 @@ const mongodb = require('./db/mongo');
 const swaggerDocs = require('./config/swagger');
 
 const app = express();
+const port = process.env.PORT || 8080;
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
