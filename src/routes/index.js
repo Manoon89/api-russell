@@ -16,7 +16,19 @@ router.use('/reservations', reservationRoute);
 router.use('/dashboard', dashboardRoute);
 router.use('/auth', authRoute);
 
-// On renvoie sur la vue "index"
+/**
+ * @swagger
+ * /:
+ *      get:
+ *          summary: Affiche la page d'accueil
+ *          description: Cette route affiche la page d'accueil
+ *          tags: [Index]
+ *          responses: 
+ *              200:
+ *                  description: la page d'accueil est rendue avec succès
+ *              500: 
+ *                  description: erreur du serveur lors du rendu de la page
+ */
 router.get('/', serviceIndex.goToIndex);
 
 router.post('/login', serviceIndex.login);

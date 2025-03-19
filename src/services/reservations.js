@@ -65,7 +65,7 @@ exports.add = async (req, res, next) => {
         return res.redirect('/reservations/?success=Nouvelle réservation créée avec succès !');
     }
     catch (error) {
-        return res.status(501).json(error);
+        return res.status(500).json(error);
     }    
 }
 
