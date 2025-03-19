@@ -3,19 +3,6 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
 /**
- *  * @swagger
- * /dashboard:
- *   get:
- *     summary: Affiche la page du tableau de bord de l'utilisateur connecté
- *     tags: [Dashboard]
- *     responses:
- *       200:
- *         description: Vue du tableau de bord affichée avec succès
- *         content:
- *           text/html:
- *             schema:
- *               type: string
- *
  * Cette fonction affiche la page du tableau de bord, en passant les informations de l'utilisateur connecté. 
  * 
  * @param {Object} req Requête (http) envoyée par le client au serveur
@@ -28,36 +15,6 @@ exports.goToDashboard = (req, res) => {
 };
 
 /**
- *  * @swagger
- * /login:
- *   post:
- *     summary: Authentifie un utilisateur et génère un token JWT
- *     tags: [Authentication]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               email:
- *                 type: string
- *               password:
- *                 type: string
- *             required:
- *               - email
- *               - password
- *     responses:
- *       200:
- *         description: Authentification réussie, redirection vers le tableau de bord
- *       400:
- *         description: Email et mot de passe requis
- *       401:
- *         description: Mot de passe incorrect
- *       404:
- *         description: Utilisateur introuvable
- *       500:
- *         description: Erreur interne du serveur
  *
  * Cette fonction permet d'authentifier un utilisateur (présent sur la base de données) en vérifiant son email & son mot de passe. 
  * Elle génère un token si les informations d'authentification sont valides. 
@@ -125,16 +82,6 @@ exports.login = async (req, res, next) => {
 };
 
 /**
- *  * @swagger
- * /logout:
- *   post:
- *     summary: Déconnecte l'utilisateur en supprimant le cookie d'authentification
- *     tags: [Authentication]
- *     responses:
- *       200:
- *         description: Déconnexion réussie
- *       500:
- *         description: Erreur interne du serveur
  * 
  * Cette fonction déconnecte l'utilisateur en supprimant le cookie d'authentification. 
  * 

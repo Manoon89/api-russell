@@ -3,27 +3,6 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
 /**
- * @swagger
- * /users:
- *   get:
- *     summary: Récupère tous les utilisateurs dans la base de données
- *     tags: [Users]
- *     parameters:
- *       - in: query
- *         name: success
- *         schema:
- *           type: string
- *         description: Message de succès (facultatif)
- *       - in: query
- *         name: error
- *         schema:
- *           type: string
- *         description: Message d'erreur (facultatif)
- *     responses:
- *       200:
- *         description: Liste des utilisateurs récupérée avec succès
- *       500:
- *         description: Erreur serveur
  * 
  * Cette fonction récupère tous les utilisateurs de la base de données et les rend dans la vue. 
  * 
@@ -58,14 +37,6 @@ exports.getAll = async (req, res, next) => {
 }
 
 /**
- * @swagger
- * /users/add:
- *   get:
- *     summary: Affiche la page d'ajout d'un nouvel utilisateur
- *     tags: [Users]
- *     responses:
- *       200:
- *         description: Vue de création de l'utilisateur affichée
  * 
  * Cette fonction rend la vue de la page d'ajout d'un utilisateur. 
  * 
@@ -77,33 +48,6 @@ exports.goToAdd = (req, res) => {
 };
 
 /**
- * @swagger
- * /users:
- *   post:
- *     summary: Ajoute un nouvel utilisateur
- *     tags: [Users]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               username:
- *                 type: string
- *               email:
- *                 type: string
- *               password:
- *                 type: string
- *             required:
- *               - username
- *               - email
- *               - password
- *     responses:
- *       201:
- *         description: Utilisateur créé avec succès
- *       500:
- *         description: Erreur serveur
  * 
  * Cette fonction permet d'ajouter un nouvel utilisateur à la base de données. 
  * 
@@ -137,25 +81,6 @@ exports.add = async (req, res, next) => {
 }
 
 /**
- * @swagger
- * /users/{email}:
- *   get:
- *     summary: Récupère les détails d'un utilisateur via son email
- *     tags: [Users]
- *     parameters:
- *       - in: path
- *         name: email
- *         required: true
- *         schema:
- *           type: string
- *         description: Email de l'utilisateur
- *     responses:
- *       200:
- *         description: Utilisateur récupéré avec succès
- *       404:
- *         description: Utilisateur introuvable
- *       500:
- *         description: Erreur serveur
  * 
  * Cette fonction permet de récupérer un utilisateur en particulier à partir de son email. 
  * 
@@ -187,25 +112,6 @@ exports.getByEmail = async (req, res, next) => {
 }
 
 /**
- * @swagger
- * /users/{email}/edit:
- *   get:
- *     summary: Accède à la page de modification d'un utilisateur
- *     tags: [Users]
- *     parameters:
- *       - in: path
- *         name: email
- *         required: true
- *         schema:
- *           type: string
- *         description: Adresse email unique de l'utilisateur
- *     responses:
- *       200:
- *         description: Vue de modification de l'utilisateur chargée avec succès
- *       404:
- *         description: Utilisateur introuvable
- *       500:
- *         description: Erreur interne lors de la récupération de l'utilisateur
  * 
  * Cette fonction permet de renvoyer sur la page de modification d'un utilisateur. 
  * 
@@ -230,38 +136,6 @@ exports.goToEdit = async (req, res) => {
 };
 
 /**
- * @swagger
- * /users/{email}:
- *   put:
- *     summary: Met à jour les informations d'un utilisateur via son email
- *     tags: [Users]
- *     parameters:
- *       - in: path
- *         name: email
- *         required: true
- *         schema:
- *           type: string
- *         description: Email de l'utilisateur
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               username:
- *                 type: string
- *               email:
- *                 type: string
- *               password:
- *                 type: string
- *     responses:
- *       200:
- *         description: Utilisateur mis à jour avec succès
- *       404:
- *         description: Utilisateur introuvable
- *       500:
- *         description: Erreur serveur
  * 
  * Cette fonction met à jour un utilisateur. 
  * 
@@ -314,25 +188,6 @@ exports.update = async (req, res, next) => {
 };
 
 /**
- * @swagger
- * /users/{email}:
- *   delete:
- *     summary: Supprime un utilisateur via son email
- *     tags: [Users]
- *     parameters:
- *       - in: path
- *         name: email
- *         required: true
- *         schema:
- *           type: string
- *         description: Email de l'utilisateur
- *     responses:
- *       200:
- *         description: Utilisateur supprimé avec succès
- *       404:
- *         description: Utilisateur introuvable
- *       500:
- *         description: Erreur serveur
  * 
  * Cette fonction supprimer un utilisateur de la base de données. 
  * 
@@ -365,39 +220,6 @@ exports.delete = async (req, res, next) => {
 }
 
 /**
- * @swagger
- * /authenticate:
- *   post:
- *     summary: Authentifie un utilisateur et génère un token JWT
- *     tags: [Authentication]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               email:
- *                 type: string
- *                 description: Adresse email de l'utilisateur
- *               password:
- *                 type: string
- *                 description: Mot de passe de l'utilisateur
- *             required:
- *               - email
- *               - password
- *     responses:
- *       200:
- *         description: Authentification réussie, token généré
- *         headers:
- *           Authorization:
- *             description: JWT pour l'utilisateur authentifié
- *             schema:
- *               type: string
- *       404:
- *         description: Utilisateur introuvable ou mauvaises informations d'identification
- *       501:
- *         description: Erreur interne du serveur
  * 
  * Cette fonction permet d'authentifier un utilisateur et de générer un token pour la session. 
  * 

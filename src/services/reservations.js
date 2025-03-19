@@ -1,40 +1,6 @@
 const Reservation = require('../models/reservation');
 
 /**
- * @swagger
- * /reservations:
- *   get:
- *     summary: Récupère toutes les réservations depuis la base de données
- *     tags: [Reservations]
- *     parameters:
- *       - in: query
- *         name: success
- *         schema:
- *           type: string
- *         description: Message de succès (facultatif)
- *       - in: query
- *         name: error
- *         schema:
- *           type: string
- *         description: Message d'erreur (facultatif)
- *     responses:
- *       200:
- *         description: Réservations récupérées avec succès
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   catwayNumber:
- *                     type: string
- *                   clientName:
- *                     type: string
- *                   boatName:
- *                     type: string
- *       500:
- *         description: Erreur serveur
  * 
  * Cette fonction récupère toutes les réservations dans la base de données et les rend dans la vue. 
  * 
@@ -69,45 +35,6 @@ exports.getAll = async (req, res) => {
 }
 
 /**
- * @swagger
- * /reservations:
- *   post:
- *     summary: Ajoute une nouvelle réservation
- *     tags: [Reservations]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               catwayNumber:
- *                 type: string
- *                 description: Numéro du catway réservé
- *               clientName:
- *                 type: string
- *                 description: Nom du client
- *               boatName:
- *                 type: string
- *                 description: Nom du bateau
- *               startDate:
- *                 type: string
- *                 format: date
- *               endDate:
- *                 type: string
- *                 format: date
- *             required:
- *               - catwayNumber
- *               - clientName
- *               - startDate
- *               - endDate
- *     responses:
- *       201:
- *         description: Réservation créée avec succès
- *       400:
- *         description: Données invalides ou incomplètes
- *       500:
- *         description: Erreur serveur
  * 
  * Cette fonction ajoute une nouvelle réservation dans la base de données. 
  * 
@@ -138,7 +65,7 @@ exports.add = async (req, res, next) => {
         return res.redirect('/reservations/?success=Nouvelle réservation créée avec succès !');
     }
     catch (error) {
-        return res.status(501).json(error);
+        return res.status(500).json(error);
     }    
 }
 
@@ -146,16 +73,6 @@ exports.add = async (req, res, next) => {
 concerné est déjà réservé */
 
 /**
- * @swagger
- * /reservations/add:
- *   get:
- *     summary: Affiche la page d'ajout d'une nouvelle réservation
- *     tags: [Reservations]
- *     responses:
- *       200:
- *         description: Vue de création de réservation affichée avec succès
- *       500:
- *         description: Erreur interne du serveur
  * 
  * Cette fonction rend la vue de la page d'ajout d'une réservation. 
  * 
@@ -167,25 +84,6 @@ exports.goToAdd = (req, res) => {
 }
 
 /**
- * @swagger
- * /reservations/{id}:
- *   get:
- *     summary: Récupère les détails d'une réservation
- *     tags: [Reservations]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *         description: Identifiant unique de la réservation
- *     responses:
- *       200:
- *         description: Réservation récupérée avec succès
- *       404:
- *         description: Réservation introuvable
- *       500:
- *         description: Erreur serveur
  * 
  * Cette fonction permet de récupérer les détails d'une réservation, y compris sa date de création et sa date de modification. 
  * 
@@ -217,27 +115,6 @@ exports.getOne = async (req, res, next) => {
 }   
 
 /**
- * @swagger
- * /reservations/{id}/edit:
- *   get:
- *     summary: Accède à la page de modification d'une réservation
- *     tags: [Reservations]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *         description: Identifiant unique de la réservation
- *     responses:
- *       200:
- *         description: Vue de modification de la réservation chargée avec succès
- *       404:
- *         description: Réservation introuvable
- *       500:
- *         description: Erreur interne lors de la récupération de la réservation
- * 
- * Cette fonction permet d'aller sur la page de modification d'une réservation. 
  * 
  * Elle va : 
  * - Chercher la réservation concernée via son ID, 
@@ -265,44 +142,6 @@ exports.goToEdit = async (req, res) => {
 
 
 /**
- * @swagger
- * /reservations/{id}:
- *   put:
- *     summary: Met à jour une réservation existante
- *     tags: [Reservations]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *         description: Identifiant unique de la réservation
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               catwayNumber:
- *                 type: string
- *               clientName:
- *                 type: string
- *               boatName:
- *                 type: string
- *               startDate:
- *                 type: string
- *                 format: date
- *               endDate:
- *                 type: string
- *                 format: date
- *     responses:
- *       200:
- *         description: Réservation mise à jour avec succès
- *       404:
- *         description: Réservation introuvable
- *       500:
- *         description: Erreur serveur
  * 
  * Cette fonction met à jour une réservation dans la base de données. 
  * 
@@ -346,25 +185,6 @@ exports.update = async (req, res, next) => {
 };
 
 /**
- * @swagger
- * /reservations/{id}:
- *   delete:
- *     summary: Supprime une réservation
- *     tags: [Reservations]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *         description: Identifiant unique de la réservation
- *     responses:
- *       200:
- *         description: Réservation supprimée avec succès
- *       404:
- *         description: Réservation introuvable
- *       500:
- *         description: Erreur serveu
  * 
  * Cette fonction supprime une réservation dans la base de données. 
  * 
